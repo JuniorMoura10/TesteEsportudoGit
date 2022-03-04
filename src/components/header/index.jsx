@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useContext } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 import {
@@ -10,16 +10,21 @@ import {
 } from './styles';
 
 import client from '../../services/client';
+import { context } from '../../context';
 
 const Header = () => {
+    const ctx = useContext(context);
     const [searchedValue, setSearchedValue] = useState('');
 
     async function getUserData(){
         try {
-           const response = await client.get(`/${searchedValue}`);
-           console.log(response.data);
-        } catch (error) {
-            console.log(error)
+           const response = await client.get(`${searchedValue}`);
+           const repos = await client.get(`${searchedValue}/repos`);
+           
+           ctx.setUserData(response.data);
+           ctx.setRepos(repos.data);
+        } catch (err) {
+            console.log(err);
         }
     }
 
