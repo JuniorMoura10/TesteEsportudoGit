@@ -1,5 +1,5 @@
-import Routes from './src/Routes';
-import { ContextProvider } from './src/context';
+import Routes from './Routes';
+import { ContextProvider } from './context';
 
 const App = () => (
     <ContextProvider>
